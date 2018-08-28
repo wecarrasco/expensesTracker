@@ -24,7 +24,8 @@ describe('Bank Credit/Debit Card Reducer', () => {
         name: 'Infinity',
         limit: 5000,
         cutoff_day: 20,
-        expense: 0
+        expense: 0,
+        id: 0
       }
     ]);
 
@@ -36,7 +37,8 @@ describe('Bank Credit/Debit Card Reducer', () => {
             name: 'Infinity',
             limit: 5000,
             cutoff_day: 20,
-            expense: 0
+            expense: 0,
+            id: 0
           }
         ],
         {
@@ -56,14 +58,46 @@ describe('Bank Credit/Debit Card Reducer', () => {
         name: 'Infinity',
         limit: 5000,
         cutoff_day: 20,
-        expense: 0
+        expense: 0,
+        id: 0
       },
       {
         bank: 'Bac',
         name: 'Black Card',
         limit: 2000,
         cutoff_day: 2,
-        expense: 0
+        expense: 0,
+        id: 1
+      }
+    ]);
+  });
+
+  it('should add expenses to card', () => {
+    const state = [
+      {
+        bank: 'Ficohsa',
+        name: 'Infinity',
+        limit: 5000,
+        cutoff_day: 20,
+        expense: 0,
+        id: 0
+      }
+    ];
+
+    expect(
+      bankReducer(state, {
+        type: types.CARD_EXPENSE,
+        id: 0,
+        expense: 100
+      })
+    ).toEqual([
+      {
+        bank: 'Ficohsa',
+        name: 'Infinity',
+        limit: 5000,
+        cutoff_day: 20,
+        expense: 100,
+        id: 0
       }
     ]);
   });
