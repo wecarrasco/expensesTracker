@@ -1,9 +1,9 @@
 import R from 'ramda';
 
 import * as types from '../../constants/ActionTypes';
-import * as actions from '../../actions';
+import * as actions from '../../actions/money.action';
 
-describe('Actions', () => {
+describe('Money Actions', () => {
   it('should create an action to calculate income', () => {
     const amountOfMoney = 100;
     const expectedAction = {

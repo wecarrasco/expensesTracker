@@ -8,4 +8,8 @@ describe('Action Types', () => {
   it('should receive EXPENSE action type', () => {
     expect(type.EXPENSE).toBe('EXPENSE');
   });
+
+  it('should receive NEW_CARD action type', () => {
+    expect(type.NEW_CARD).toBe('NEW_CARD');
+  });
 });

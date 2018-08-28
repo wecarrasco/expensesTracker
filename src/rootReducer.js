@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import app from './containers/App/reducer';
-import money from './reducers/money';
+import reducers from './reducers/index';
 
 export default combineReducers({
   routing: routerReducer,
-  app,
-  money
+  reducers
 });
