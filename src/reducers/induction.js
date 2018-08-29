@@ -14,6 +14,7 @@ const budget = (state = initialState, action) => {
 
     case types.SET_INDUCTION_SETTINGS:
       state = action.induction;
+      return state;
 
     default:
       return state;
