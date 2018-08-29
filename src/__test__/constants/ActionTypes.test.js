@@ -24,4 +24,8 @@ describe('Action Types', () => {
   it('should receive SET_DAILY_AVERAGE action type', () => {
     expect(type.SET_DAILY_AVERAGE).toBe('SET_DAILY_AVERAGE');
   });
+
+  it('should receive SET_INDUCTION_SETTINGS', () => {
+    expect(type.SET_INDUCTION_SETTINGS).toEqual('SET_INDUCTION_SETTINGS');
+  });
 });
