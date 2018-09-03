@@ -1,6 +1,11 @@
 import React from 'react';
 
+import initialBudget from '../../../components/initialBudget';
+
 import './Wizard2.css';
+import imageCash from './Assets/w-3.png';
+import imageCard from './Assets/w-1.png';
+import imagePay from './Assets/w-2.png';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -18,7 +23,8 @@ export default class Wizard2 extends React.Component {
       config: {
         ButtonText: 'Next Step',
         active: 1,
-        activeSlider: 'slider-one-active'
+        activeSlider: 'slider-one-active',
+        activeImage: imageCash
       }
     };
   }
@@ -37,12 +43,14 @@ export default class Wizard2 extends React.Component {
     if (this.state.config.active === 1) {
       newState.config = {
         active: 2,
-        activeSlider: 'center slider-two-active'
+        activeSlider: 'center slider-two-active',
+        activeImage: imageCard
       };
     } else {
       newState.config = {
         active: 3,
-        activeSlider: 'full slider-three-active'
+        activeSlider: 'full slider-three-active',
+        activeImage: imagePay
       };
     }
     sleep(900).then(() => {
@@ -59,6 +67,11 @@ export default class Wizard2 extends React.Component {
   render() {
     return (
       <div className={`container ${this.state.config.activeSlider}`}>
+        <img
+          className="stepImage"
+          src={this.state.config.activeImage}
+          alt="image"
+        />
         <div className="steps">
           <div className="step step-one">
             <div className="liner" />
@@ -80,6 +93,10 @@ export default class Wizard2 extends React.Component {
         </div>
         <div className="slider-ctr">
           <div className="slider">
+            <initialBudget
+              buttonText={this.state.config.ButtonText}
+              onClick={this.changeActiveSlide}
+            />
             <form className="slider-form slider-one">
               <h2>Initial Budget</h2>
               <label className="input">

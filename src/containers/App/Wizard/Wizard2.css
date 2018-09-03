@@ -16,6 +16,13 @@ button:active,
   opacity: 0.5;
 }
 
+.stepImage {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 27%;
+}
+
 .container {
   width: 400px;
   position: absolute;
