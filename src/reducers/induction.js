@@ -13,7 +13,7 @@ const budget = (state = initialState, action) => {
       return { ...state, initialBudget: state.initialBudget };
 
     case types.SET_INDUCTION_SETTINGS:
-      state = action.induction;
+      state = { ...state, ...action.induction };
       return state;
 
     default:
