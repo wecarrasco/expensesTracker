@@ -86,7 +86,7 @@ class Wizard2 extends React.Component {
           ...this.state,
           initialValues: {
             ...this.state.initialValues,
-            initialBudget: parseInt(evt.target.value)
+            initialBudget: parseInt(evt.target.value, 10)
           }
         });
         break;
@@ -96,7 +96,7 @@ class Wizard2 extends React.Component {
           ...this.state,
           initialValues: {
             ...this.state.initialValues,
-            dailyAverage: parseInt(evt.target.value)
+            dailyAverage: parseInt(evt.target.value, 10)
           }
         });
         break;
@@ -116,7 +116,7 @@ class Wizard2 extends React.Component {
           ...this.state,
           initialValues: {
             ...this.state.initialValues,
-            cutoff_day: parseInt(evt.target.value)
+            cutoff_day: parseInt(evt.target.value, 10)
           }
         });
         break;
@@ -126,7 +126,7 @@ class Wizard2 extends React.Component {
           ...this.state,
           initialValues: {
             ...this.state.initialValues,
-            limit: parseInt(evt.target.value)
+            limit: parseInt(evt.target.value, 10)
           }
         });
         break;
