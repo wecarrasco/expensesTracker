@@ -6,6 +6,6 @@ export const newCard = (card) => {
   cards.push(card);
   return {
     type: types.NEW_CARD,
-    cards
+    card
   };
 };
