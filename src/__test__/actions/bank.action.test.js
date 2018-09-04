@@ -13,16 +13,14 @@ describe('Bank Actions', () => {
     };
     const expectedAction = {
       type: types.NEW_CARD,
-      cards: [
-        {
-          type: types.NEW_CARD,
-          bank: 'Ficohsa',
-          name: 'Infinity',
-          limit: 5000,
-          cutoff_day: 20,
-          expense: 0
-        }
-      ]
+      card: {
+        type: types.NEW_CARD,
+        bank: 'Ficohsa',
+        name: 'Infinity',
+        limit: 5000,
+        cutoff_day: 20,
+        expense: 0
+      }
     };
 
     expect(actions.newCard(card)).toEqual(expectedAction);
