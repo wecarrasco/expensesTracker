@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Form = () =>{
-  console.log(this.props)
   return (
    
       <h2>Initial Budget</h2>

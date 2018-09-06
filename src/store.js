@@ -9,6 +9,7 @@ export const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
 const initialState = {};
 const enhacers = [];
+
 const middleware = [sagaMiddleware, routerMiddleware(history)];
 
 if (process.env.NODE_ENV === 'development') {
@@ -30,6 +31,8 @@ const store = createStore(
   composedEnhacers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+// sagaMiddleware.run(makeExpense);
 
 store.runSaga = sagaMiddleware.run;
 

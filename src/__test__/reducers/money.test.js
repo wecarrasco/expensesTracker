@@ -4,7 +4,9 @@ import * as types from '../../constants/ActionTypes';
 describe('Money Reducer', () => {
   it('should return the initial state', () => {
     expect(moneyReducer(undefined, {})).toEqual({
-      money: 0
+      money: 0,
+      totalIncomes: 0,
+      totalExpenses: 0
     });
   });
 
@@ -15,19 +17,27 @@ describe('Money Reducer', () => {
         money: 100
       })
     ).toEqual({
-      money: 100
+      money: 100,
+      totalIncomes: 100,
+      totalExpenses: 0
     });
 
     expect(
       moneyReducer(
-        { money: 100 },
+        {
+          money: 100,
+          totalIncomes: 100,
+          totalExpenses: 0
+        },
         {
           type: types.INCOME,
           money: 50
         }
       )
     ).toEqual({
-      money: 150
+      money: 150,
+      totalIncomes: 150,
+      totalExpenses: 0
     });
   });
 
@@ -38,19 +48,27 @@ describe('Money Reducer', () => {
         money: 100
       })
     ).toEqual({
-      money: -100
+      money: -100,
+      totalIncomes: 0,
+      totalExpenses: 100
     });
 
     expect(
       moneyReducer(
-        { money: 100 },
+        {
+          money: 100,
+          totalIncomes: 0,
+          totalExpenses: 100
+        },
         {
           type: types.EXPENSE,
           money: 50
         }
       )
     ).toEqual({
-      money: 50
+      money: 50,
+      totalIncomes: 0,
+      totalExpenses: 150
     });
   });
 });

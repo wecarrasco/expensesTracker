@@ -1,6 +1,6 @@
 import * as types from '../constants/ActionTypes';
 
-let money = 0;
+const money = 0;
 
 export const income = (amountOfMoney) => ({
   type: types.INCOME,

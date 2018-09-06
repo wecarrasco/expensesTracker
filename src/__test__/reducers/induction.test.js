@@ -6,7 +6,8 @@ describe('Budget Reducer', () => {
     expect(inductionReducer(undefined, {})).toEqual({
       initialBudget: 0,
       dailyAverage: 0,
-      startDate: new Date(2000, 8, 25)
+      startDate: new Date(2000, 8, 25),
+      savings: 0
     });
   });
 
@@ -23,7 +24,8 @@ describe('Budget Reducer', () => {
     ).toEqual({
       initialBudget: 100,
       dailyAverage: 50,
-      startDate: new Date(2000, 8, 25)
+      startDate: new Date(2000, 8, 25),
+      savings: 50
     });
   });
 
@@ -38,7 +40,8 @@ describe('Budget Reducer', () => {
     ).toEqual({
       initialBudget: 1005,
       dailyAverage: 0,
-      startDate: new Date(2000, 8, 25)
+      startDate: new Date(2000, 8, 25),
+      savings: 0
     });
 
     expect(
@@ -46,7 +49,8 @@ describe('Budget Reducer', () => {
         {
           initialBudget: 100,
           dailyAverage: 50,
-          startDate: new Date(2000, 8, 25)
+          startDate: new Date(2000, 8, 25),
+          savings: 50
         },
         {
           type: types.SET_BUDGET,
@@ -58,7 +62,8 @@ describe('Budget Reducer', () => {
     ).toEqual({
       initialBudget: 1000,
       dailyAverage: 50,
-      startDate: new Date(2000, 8, 25)
+      startDate: new Date(2000, 8, 25),
+      savings: 50
     });
   });
 });
