@@ -45,15 +45,14 @@ class Dashboard extends Component {
           />
         </div>
         <Table
-          Nombre="Walther"
-          Fecha="hoy"
-          Categoria="comida"
-          Tipo="Efectivo"
-          Monto="100"
           income={this.props.income}
-          expense={this.props.expense}
           decrementSavings={this.props.decrementSavings}
           addCategory={this.props.addCategory}
+          rojo={this.state.rojo}
+          verde={this.state.verde}
+          azul={this.state.azul}
+          colorOnClick={this.selectColor}
+          actions={this.props.actions}
         />
       </div>
     );
@@ -69,7 +68,8 @@ function mapStateToProps(state) {
     money: money.money,
     totalIncomes: money.totalIncomes,
     totalExpenses: money.totalExpenses,
-    savings: induction.savings
+    savings: induction.savings,
+    actions: money.actions
   };
 }
 

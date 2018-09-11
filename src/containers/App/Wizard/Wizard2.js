@@ -11,7 +11,7 @@ import Line from '../../../components/Wizard/line';
 
 import { setInductionSettings } from '../../../actions/induction.action';
 import { newCard } from '../../../actions/bank.action';
-import { income } from '../../../actions/money.action';
+import { setInitialBudget } from '../../../actions/money.action';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -51,7 +51,7 @@ class Wizard2 extends React.Component {
         initialBudget: this.state.initialValues.initialBudget,
         dailyAverage: this.state.initialValues.dailyAverage
       });
-      this.props.income(this.state.initialValues.initialBudget);
+      this.props.setInitialBudget(this.state.initialValues.initialBudget);
       newState.config = {
         active: 2,
         activeSlider: 'center slider-two-active',
@@ -250,6 +250,6 @@ export default connect(
   {
     setInductionSettings,
     newCard,
-    income
+    setInitialBudget
   }
 )(Wizard2);

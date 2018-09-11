@@ -1,13 +1,39 @@
-import * as types from '../constants/ActionTypes';
+import { INCOME, EXPENSE, SET_BUDGET } from '../constants/ActionTypes';
 
-const money = 0;
-
-export const income = (amountOfMoney) => ({
-  type: types.INCOME,
-  money: money + amountOfMoney
+export const setInitialBudget = (amount) => ({
+  type: SET_BUDGET,
+  money: amount
 });
 
-export const expense = (amountOfMoney) => ({
-  type: types.EXPENSE,
-  money: money - amountOfMoney
+export const income = ({
+  amount,
+  name,
+  description,
+  selectedMethod,
+  notes
+}) => ({
+  type: INCOME,
+  money: amount,
+  name,
+  description,
+  selectedMethod,
+  notes,
+  selectedCategory: 'INCOME'
+});
+
+export const expense = ({
+  amount,
+  name,
+  description,
+  selectedCategory,
+  selectedMethod,
+  notes
+}) => ({
+  type: EXPENSE,
+  money: amount,
+  name,
+  description,
+  selectedCategory,
+  selectedMethod,
+  notes
 });

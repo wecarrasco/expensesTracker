@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import ReactModal from 'react-modal';
+import uniqid from 'uniqid';
 
+import SettingsModal from './settingsModal';
+import ExpenseModal from './expenseModal';
+import IncomeModal from './incomeModal';
 import Row from './Row';
 
 class Table extends Component {
@@ -9,10 +12,7 @@ class Table extends Component {
     this.state = {
       showSettingsModal: false,
       showExpenseModal: false,
-      showIncomeModal: false,
-      rojo: 'grande',
-      verde: '',
-      azul: ''
+      showIncomeModal: false
     };
   }
 
@@ -53,13 +53,32 @@ class Table extends Component {
     this.setState({ ...this.state, ...colors });
   };
 
+  loadActions = () => {
+    return this.props.actions.map((action) => {
+      console.log(action);
+      return (
+        <Row
+          key={uniqid(`${action.type}-`)}
+          description={action.description}
+          amount={action.amount}
+          name={action.name}
+          notes={action.notes}
+          selectedCategory={action.selectedCategory}
+          selectedMethod={action.selectedMethod}
+          type={action.type}
+          date={action.date}
+        />
+      );
+    });
+  };
+
   render() {
     return (
       <div className="dashboard-container actions">
         <div className="actions-inner">
           <header className="actions-header">
             <div className="title">Expenses / Incomes</div>
-            <div className="count">| 32 Movements</div>
+            <div className="count">| {this.props.actions.length} Movements</div>
             <button onClick={this.openSettingsModal}>
               <i className="fas fa-cog" />
             </button>
@@ -81,87 +100,27 @@ class Table extends Component {
                 <th>Notes</th>
               </tr>
             </thead>
-            <tbody>
-              <Row />
-              <Row />
-              <Row />
-              <Row />
-              <Row />
-              <Row />
-              <Row />
-              <Row />
-              <Row />
-              <Row />
-            </tbody>
+            <tbody>{this.loadActions()}</tbody>
           </table>
         </div>
-        <ReactModal
+        <SettingsModal
           isOpen={this.state.showSettingsModal}
           contentLabel="onRequestClose Example"
           onRequestClose={this.closeSettingsModal}
           ariaHideApp={false}
-          className="settingsModal"
-          overlayClassName="Overlay"
-        >
-          <h1>SETTINGS</h1>
-          <br />
-          <h2>Add categories</h2>
-          <div className="form__group">
-            <input
-              type="text"
-              id="newCategory"
-              className="form__input"
-              placeholder="New Category"
-              required
-            />
-            <label htmlFor="newCategory" className="form__label">
-              New Category
-            </label>
-          </div>
-          <h2>Select Color</h2>
-          <div className="form__group">
-            <button
-              className={`color colorRojo ${this.state.rojo}`}
-              id="buttonColorRojo"
-              onClick={this.selectColor}
-            />
-            <button
-              className={`color colorVerde ${this.state.verde}`}
-              id="buttonColorVerde"
-              onClick={this.selectColor}
-            />
-            <button
-              className={`color colorAzul ${this.state.azul}`}
-              id="buttonColorAzul"
-              onClick={this.selectColor}
-            />
-          </div>
-          <div className="form__group">
-            <button className="buttonAddSettings">
-              <span>Add</span>
-              <div className="icon">
-                <i className="fa fa-plus" />
-                <i className="fa fa-check" />
-              </div>
-            </button>
-          </div>
-        </ReactModal>
-        <ReactModal
+        />
+        <ExpenseModal
           isOpen={this.state.showExpenseModal}
           contentLabel="onRequestClose Example"
           onRequestClose={this.closeExpenseModal}
           ariaHideApp={false}
-        >
-          <p>EXPENSES</p>
-        </ReactModal>
-        <ReactModal
+        />
+        <IncomeModal
           isOpen={this.state.showIncomeModal}
           contentLabel="onRequestClose Example"
           onRequestClose={this.closeIncomeModal}
           ariaHideApp={false}
-        >
-          <p>INCOMES</p>
-        </ReactModal>
+        />
       </div>
     );
   }

@@ -14,3 +14,4 @@ export const DECREMENT_SAVINGS = 'DECREMENT_SAVINGS';
 
 //Settings
 export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const GET_CATEGORIES = 'GET_CATEGORIES';

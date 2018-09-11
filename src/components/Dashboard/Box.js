@@ -11,7 +11,7 @@ class Box extends Component {
       <div className={`card ${Color}`}>
         <div className="title">{Category}</div>
         <i className={icon} />
-        <div className="value">{total}</div>
+        <div className="value">L. {total}</div>
         <div className="stat">
           <b>13</b>% increase
         </div>

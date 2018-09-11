@@ -8,13 +8,13 @@ import { Route, Switch } from 'react-router';
 import Wiz from './containers/App/Wizard/Wizard2';
 import Dashboard from './containers/App/Dashboard';
 import registerServiceWorker from './registerServiceWorker';
-import Sagas from './sagas/sagas';
+// import Sagas from './sagas/sagas';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import './index.css';
 
-Sagas.map(store.runSaga);
+// Sagas.map(store.runSaga);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
