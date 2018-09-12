@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const formatDate = (date) => {
   const months = [
@@ -62,7 +63,11 @@ const Row = (props) => (
     </td>
     <td>
       <p>{props.selectedMethod}</p>
-      <p>Ficohsa</p>
+      <p>
+        {props.selectedMethod === 'Credit Card'
+          ? props.card.creditCardName
+          : ''}
+      </p>
     </td>
     <td>
       <p className={`${incomeExpenseText(props.selectedCategory)}`}>
@@ -70,10 +75,18 @@ const Row = (props) => (
       </p>
       <p>Paid</p>
     </td>
-    <td className="status">
-      <button>Notes</button>
-    </td>
+    <td className="status">{props.notes}</td>
   </tr>
 );
 
-export default Row;
+function mapStateToProps(state) {
+  const bank = state.reducers.bank;
+  return {
+    card: bank[0]
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Row);

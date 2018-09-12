@@ -24,24 +24,28 @@ class Dashboard extends Component {
             Color="green"
             icon="far fa-arrow-alt-circle-up"
             total={this.props.totalIncomes}
+            lastAmount={this.props.actions}
           />
           <Box
             Category="Gastos Totales"
             Color="red"
             icon="far fa-arrow-alt-circle-down"
             total={this.props.totalExpenses}
+            lastAmount={this.props.actions}
           />
           <Box
             Category="Presupuesto"
             Color="orange"
             icon="fas fa-wallet"
             total={this.props.money}
+            lastAmount={this.props.actions}
           />
           <Box
             Category="Ahorro esta semana"
             Color="blue"
             icon="fas fa-hand-holding-usd"
             total={this.props.savings}
+            lastAmount={this.props.actions}
           />
         </div>
         <Table

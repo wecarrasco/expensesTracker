@@ -5,16 +5,14 @@ class Box extends Component {
     super(props);
     this.state = {};
   }
+
   render() {
-    const { Category, Color, icon, total } = this.props;
+    const { Category, Color, icon, total, lastAmount } = this.props;
     return (
       <div className={`card ${Color}`}>
         <div className="title">{Category}</div>
         <i className={icon} />
         <div className="value">L. {total}</div>
-        <div className="stat">
-          <b>13</b>% increase
-        </div>
       </div>
     );
   }
