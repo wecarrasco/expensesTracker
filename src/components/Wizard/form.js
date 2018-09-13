@@ -1,9 +1,8 @@
 import React from 'react';
 
-const Form = () =>{
-  console.log(this.props)
+const Form = () => {
   return (
-   
+    <form>
       <h2>Initial Budget</h2>
       <label className="input">
         <input
@@ -37,7 +36,7 @@ const Form = () =>{
         {this.state.config.ButtonText}
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default Form;

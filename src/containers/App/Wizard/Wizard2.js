@@ -11,6 +11,7 @@ import Line from '../../../components/Wizard/line';
 
 import { setInductionSettings } from '../../../actions/induction.action';
 import { newCard } from '../../../actions/bank.action';
+import { setInitialBudget } from '../../../actions/money.action';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -50,6 +51,7 @@ class Wizard2 extends React.Component {
         initialBudget: this.state.initialValues.initialBudget,
         dailyAverage: this.state.initialValues.dailyAverage
       });
+      this.props.setInitialBudget(this.state.initialValues.initialBudget);
       newState.config = {
         active: 2,
         activeSlider: 'center slider-two-active',
@@ -78,8 +80,9 @@ class Wizard2 extends React.Component {
     });
   };
 
+  goToDashboard = () => this.props.history.push('/home');
+
   handleChange = (evt) => {
-    console.log(evt.target.id);
     switch (evt.target.id) {
       case 'initialBudget':
         this.setState({
@@ -229,7 +232,7 @@ class Wizard2 extends React.Component {
             <div className="slider-form slider-three">
               <h2>Hello,</h2>
               <h3>Welcome to your new Expenses Manager!</h3>
-              <a className="reset" href="https://codepen.io/balapa/pen/XbXVRg">
+              <a className="reset" onClick={this.goToDashboard}>
                 Go to the Dashboard
               </a>
             </div>
@@ -246,6 +249,7 @@ export default connect(
   null,
   {
     setInductionSettings,
-    newCard
+    newCard,
+    setInitialBudget
   }
 )(Wizard2);
