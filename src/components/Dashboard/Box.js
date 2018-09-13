@@ -7,7 +7,7 @@ class Box extends Component {
   }
 
   render() {
-    const { Category, Color, icon, total, lastAmount } = this.props;
+    const { Category, Color, icon, total } = this.props;
     return (
       <div className={`card ${Color}`}>
         <div className="title">{Category}</div>

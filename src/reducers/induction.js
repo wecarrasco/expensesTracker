@@ -9,10 +9,6 @@ const initialState = {
 
 const budget = (state = initialState, action) => {
   switch (action.type) {
-    // case types.SET_BUDGET:
-    //   state.initialBudget = action.induction.initialBudget;
-    //   return { ...state, initialBudget: state.initialBudget };
-
     case types.SET_INDUCTION_SETTINGS:
       state = {
         ...state,

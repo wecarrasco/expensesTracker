@@ -12,7 +12,6 @@ const isAmountOK = (expense) => {
 };
 
 const isNameOK = ({ valid, expense }) => {
-  console.log(expense);
   const validName = cond([
     [
       equals(false),

@@ -55,7 +55,6 @@ class Table extends Component {
 
   loadActions = () => {
     return this.props.actions.map((action) => {
-      // console.log(action);
       return (
         <Row
           key={uniqid(`${action.type}-`)}

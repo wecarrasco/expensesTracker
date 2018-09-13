@@ -10,6 +10,11 @@ const initialState = {
 const money = (state = initialState, action) => {
   switch (action.type) {
     case types.INCOME:
+      const dayIncome = new Date().getDate();
+      const monthIncome = new Date().getMonth();
+      const yearIncome = new Date().getFullYear();
+
+      const dateIncome = new Date(yearIncome, monthIncome, dayIncome);
       state.actions.push({
         amount: action.money,
         name: action.name,
@@ -17,7 +22,7 @@ const money = (state = initialState, action) => {
         selectedMethod: action.selectedMethod,
         selectedCategory: action.selectedCategory,
         notes: action.notes,
-        date: new Date(),
+        date: dateIncome,
         type: action.type
       });
       return {
@@ -28,6 +33,11 @@ const money = (state = initialState, action) => {
       };
 
     case types.EXPENSE:
+      const day = new Date().getDate();
+      const month = new Date().getMonth();
+      const year = new Date().getFullYear();
+
+      const date = new Date(year, month, day);
       state.actions.push({
         amount: action.money,
         name: action.name,
@@ -35,7 +45,7 @@ const money = (state = initialState, action) => {
         selectedCategory: action.selectedCategory,
         selectedMethod: action.selectedMethod,
         notes: action.notes,
-        date: new Date(),
+        date,
         type: action.type
       });
       return {

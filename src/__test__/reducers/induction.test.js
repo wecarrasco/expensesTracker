@@ -28,42 +28,4 @@ describe('Budget Reducer', () => {
       savings: 50
     });
   });
-
-  it('should set budget and receive new budget value', () => {
-    expect(
-      inductionReducer(undefined, {
-        type: types.SET_BUDGET,
-        induction: {
-          initialBudget: 1005
-        }
-      })
-    ).toEqual({
-      initialBudget: 1005,
-      dailyAverage: 0,
-      startDate: new Date(2000, 8, 25),
-      savings: 0
-    });
-
-    expect(
-      inductionReducer(
-        {
-          initialBudget: 100,
-          dailyAverage: 50,
-          startDate: new Date(2000, 8, 25),
-          savings: 50
-        },
-        {
-          type: types.SET_BUDGET,
-          induction: {
-            initialBudget: 1000
-          }
-        }
-      )
-    ).toEqual({
-      initialBudget: 1000,
-      dailyAverage: 50,
-      startDate: new Date(2000, 8, 25),
-      savings: 50
-    });
-  });
 });

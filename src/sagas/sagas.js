@@ -5,8 +5,6 @@ import { expense } from '../actions/money.action';
 import { decrementSavings } from '../actions/induction.action';
 
 export function* expenseSavings(money) {
-  console.log('hiola');
-  console.log(money);
   try {
     yield put(expense(money));
     yield put(decrementSavings(money));

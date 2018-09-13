@@ -33,7 +33,6 @@ const getDay = (date) => {
     'Friday',
     'Saturday'
   ];
-  console.log(date.getDay());
   return days[date.getDay()];
 };
 
