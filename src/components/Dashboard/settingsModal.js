@@ -2,6 +2,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { compose } from 'ramda';
+import axios from 'axios';
 
 import validate from '../../helperFunctions/validateNewCategory';
 import { addCategory } from '../../actions/settings.action';
@@ -26,7 +27,14 @@ class SettingsModal extends React.Component {
   };
 
   dispatchCategory = (state) => {
-    this.props.addCategory(state.category);
+    axios
+      .post('http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/category', {
+        category: state.category,
+        user: this.props.user
+      })
+      .then((res) => {
+        this.props.addCategory(state.category);
+      });
   };
 
   handleSubmit = (evt) => {
@@ -78,8 +86,10 @@ class SettingsModal extends React.Component {
 
 function mapStateToProps(state) {
   const settings = state.reducers.settings;
+  const user = state.reducers.user;
   return {
-    categories: settings.Categories
+    categories: settings.Categories,
+    user: user.user
   };
 }
 

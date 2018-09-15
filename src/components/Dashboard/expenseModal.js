@@ -3,9 +3,11 @@ import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { compose } from 'ramda';
 import uniqid from 'uniqid';
+import axios from 'axios';
 
 import { expense } from '../../actions/money.action';
 import { decrementSavings } from '../../actions/induction.action';
+import { addCategory } from '../../actions/settings.action';
 import validate from '../../helperFunctions/validateIncomeExpense';
 
 class ExpenseModal extends React.Component {
@@ -22,6 +24,8 @@ class ExpenseModal extends React.Component {
     super(props);
     this.state = { ...this.defaultState };
   }
+
+  componentDidMount() {}
 
   handleNameChange = (evt) => {
     this.setState({ ...this.state, name: evt.target.value });
@@ -55,7 +59,19 @@ class ExpenseModal extends React.Component {
 
   dispatchExpense = (state) => {
     this.props.expense(state);
-    this.props.decrementSavings(state.amount);
+    axios
+      .post('http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/action', {
+        ...[...this.props.actions].pop(),
+        user: this.props.user
+      })
+      .then((res) => {
+        this.props.decrementSavings(state.amount);
+        if (this.props.savings <= 0) {
+          axios.post(
+            'http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/notificationsaving'
+          );
+        }
+      });
   };
 
   handleSubmit = (evt) => {
@@ -155,12 +171,18 @@ class ExpenseModal extends React.Component {
 
 function mapStateToProps(state) {
   const settings = state.reducers.settings;
+  const money = state.reducers.money;
+  const user = state.reducers.user;
+  const induction = state.reducers.induction;
   return {
-    categories: settings.Categories
+    categories: settings.Categories,
+    actions: money.actions,
+    user: user.user,
+    savings: induction.savings
   };
 }
 
 export default connect(
   mapStateToProps,
-  { expense, decrementSavings }
+  { expense, decrementSavings, addCategory }
 )(ExpenseModal);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import './Wizard2.css';
 import imageCash from './Assets/w-3.png';
@@ -12,6 +13,7 @@ import Line from '../../../components/Wizard/line';
 import { setInductionSettings } from '../../../actions/induction.action';
 import { newCard } from '../../../actions/bank.action';
 import { setInitialBudget } from '../../../actions/money.action';
+import { setUser } from '../../../actions/user.action';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -30,9 +32,46 @@ class Wizard2 extends React.Component {
         ButtonText: 'Next Step',
         active: 1,
         activeSlider: 'slider-one-active',
-        activeImage: imageCash
-      }
+        activeImage: imageCash,
+        dashboardButton: 'Go to the Dashboard'
+      },
+      user: ''
     };
+  }
+
+  componentWillMount() {
+    if (this.state.user === '') {
+      // eslint-disable-next-line
+      while (!answer) {
+        var answer = prompt('What is your username?');
+        this.setState({ ...this.state, user: answer });
+        this.props.setUser(answer);
+      }
+    }
+  }
+  componentDidMount() {
+    axios
+      .get('http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/', {
+        params: { user: this.state.user }
+      })
+      .then((res) => {
+        if (res.data.rowCount !== 0) {
+          console.log('Vienen datos de la db');
+          console.log(res.data.rows);
+          const induction = res.data.rows[0];
+          this.props.setInductionSettings({
+            initialBudget: induction.initialbudget,
+            dailyAverage: induction.dailyaverage
+          });
+          this.props.setInitialBudget(induction.initialbudget);
+          this.props.newCard({
+            creditCardName: induction.creditcardname,
+            cutoffDay: induction.cutoffday,
+            creditLimit: induction.creditlimit
+          });
+          this.props.history.push('/home');
+        }
+      });
   }
 
   changeActiveSlide = (evt) => {
@@ -80,7 +119,34 @@ class Wizard2 extends React.Component {
     });
   };
 
-  goToDashboard = () => this.props.history.push('/home');
+  goToDashboard = () => {
+    this.setState({
+      ...this.state,
+      config: {
+        ...this.state.config,
+        dashboardButton: 'Loading Dashboard...'
+      }
+    });
+    console.log('posting induction');
+    axios
+      .post(
+        'http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/induction',
+        {
+          initialBudget: this.state.initialValues.initialBudget,
+          dailyAverage: this.state.initialValues.dailyAverage,
+          creditCardName: this.state.initialValues.name,
+          cutoffDay: this.state.initialValues.cutoff_day,
+          creditLimit: this.state.initialValues.limit,
+          user: this.state.user
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .then(() => {
+        this.props.history.push('/home');
+      });
+  };
 
   handleChange = (evt) => {
     switch (evt.target.id) {
@@ -149,7 +215,6 @@ class Wizard2 extends React.Component {
         />
         <Steps />
         <Line />
-
         <div className="slider-ctr">
           <div className="slider">
             <form className="slider-form slider-one">
@@ -232,9 +297,9 @@ class Wizard2 extends React.Component {
             <div className="slider-form slider-three">
               <h2>Hello,</h2>
               <h3>Welcome to your new Expenses Manager!</h3>
-              <a className="reset" onClick={this.goToDashboard}>
-                Go to the Dashboard
-              </a>
+              <button className="next" onClick={this.goToDashboard}>
+                Go to dashboard
+              </button>
             </div>
           </div>
         </div>
@@ -250,6 +315,7 @@ export default connect(
   {
     setInductionSettings,
     newCard,
-    setInitialBudget
+    setInitialBudget,
+    setUser
   }
 )(Wizard2);

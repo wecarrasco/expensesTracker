@@ -5,6 +5,7 @@ import { compose } from 'ramda';
 
 import validate from '../../helperFunctions/validateIncomeExpense';
 import { income } from '../../actions/money.action';
+import axios from 'axios';
 
 class IncomeModal extends React.Component {
   defaultState = {
@@ -48,6 +49,15 @@ class IncomeModal extends React.Component {
 
   dispatchIncome = (state) => {
     this.props.income(state);
+    console.log([...this.props.actions].pop());
+    axios
+      .post('http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/action', {
+        ...[...this.props.actions].pop(),
+        user: this.props.user
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   handleSubmit = (evt) => {
@@ -134,7 +144,16 @@ class IncomeModal extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  const money = state.reducers.money;
+  const user = state.reducers.user;
+  return {
+    actions: money.actions,
+    user: user.user
+  };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { income }
 )(IncomeModal);

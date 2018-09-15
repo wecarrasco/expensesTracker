@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import { expense, income } from '../../../actions/money.action';
 import { decrementSavings } from '../../../actions/induction.action';
@@ -15,6 +16,59 @@ class Dashboard extends Component {
     super(props);
     this.state = {};
   }
+
+  componentDidMount() {
+    axios
+      .all([
+        axios.get(
+          'http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/actions',
+          {
+            params: { user: this.props.user }
+          }
+        ),
+        axios.get(
+          'http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/categories',
+          {
+            params: { user: this.props.user }
+          }
+        )
+      ])
+      .then(
+        axios.spread((first_res, second_res) => {
+          if (first_res.data.rowCount > 0) {
+            first_res.data.rows.map((row) => {
+              if (row.type === 'INCOME') {
+                this.props.income({
+                  name: row.name,
+                  amount: row.amount,
+                  description: row.description,
+                  notes: row.notes,
+                  selectedMethod: row.selectedmethod
+                });
+              } else if (row.type === 'EXPENSE') {
+                this.props.expense({
+                  amount: row.amount,
+                  description: row.description,
+                  name: row.name,
+                  notes: row.notes,
+                  selectedCategory: row.selectedcategory,
+                  selectedMethod: row.selectedmethod
+                });
+              }
+              return true;
+            });
+          }
+
+          if (second_res.data.rowCount > 0) {
+            second_res.data.rows.map((category) => {
+              this.props.addCategory(category.category);
+              return true;
+            });
+          }
+        })
+      );
+  }
+
   render() {
     return (
       <div id="dashboard">
@@ -66,6 +120,8 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
   const induction = state.reducers.induction;
   const money = state.reducers.money;
+  const user = state.reducers.user;
+
   return {
     initialBudget: induction.initialBudget,
     dailyAverage: induction.dailyAverage,
@@ -73,7 +129,8 @@ function mapStateToProps(state) {
     totalIncomes: money.totalIncomes,
     totalExpenses: money.totalExpenses,
     savings: induction.savings,
-    actions: money.actions
+    actions: money.actions,
+    user: user.user
   };
 }
 

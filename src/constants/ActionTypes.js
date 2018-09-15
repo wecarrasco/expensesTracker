@@ -15,3 +15,6 @@ export const DECREMENT_SAVINGS = 'DECREMENT_SAVINGS';
 //Settings
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+
+//User
+export const SET_USER = 'SET_USER';
