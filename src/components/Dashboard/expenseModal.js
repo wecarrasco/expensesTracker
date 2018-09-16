@@ -58,20 +58,24 @@ class ExpenseModal extends React.Component {
   };
 
   dispatchExpense = (state) => {
-    this.props.expense(state);
-    axios
-      .post('http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/action', {
-        ...[...this.props.actions].pop(),
-        user: this.props.user
-      })
-      .then((res) => {
-        this.props.decrementSavings(state.amount);
-        if (this.props.savings <= 0) {
-          axios.post(
-            'http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/notificationsaving'
-          );
-        }
-      });
+    if (this.props.money >= state.amount) {
+      this.props.expense(state);
+      axios
+        .post('http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/action', {
+          ...[...this.props.actions].pop(),
+          user: this.props.user
+        })
+        .then((res) => {
+          this.props.decrementSavings(state.amount);
+          if (this.props.savings <= 0) {
+            axios.post(
+              'http://ec2-54-163-150-249.compute-1.amazonaws.com:8080/notificationsaving'
+            );
+          }
+        });
+    } else {
+      alert("You don't have enough budget to make that expense");
+    }
   };
 
   handleSubmit = (evt) => {
@@ -178,7 +182,8 @@ function mapStateToProps(state) {
     categories: settings.Categories,
     actions: money.actions,
     user: user.user,
-    savings: induction.savings
+    savings: induction.savings,
+    money: money.money
   };
 }
 
