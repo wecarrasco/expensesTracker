@@ -74,28 +74,28 @@ class Dashboard extends Component {
       <div id="dashboard">
         <div className="dashboard-container card-list">
           <Box
-            Category="Ingresos Totales"
+            Category="Total Incomes"
             Color="green"
             icon="far fa-arrow-alt-circle-up"
             total={this.props.totalIncomes}
             lastAmount={this.props.actions}
           />
           <Box
-            Category="Gastos Totales"
+            Category="Total Expenses"
             Color="red"
             icon="far fa-arrow-alt-circle-down"
             total={this.props.totalExpenses}
             lastAmount={this.props.actions}
           />
           <Box
-            Category="Presupuesto"
+            Category="Budget"
             Color="orange"
             icon="fas fa-wallet"
             total={this.props.money}
             lastAmount={this.props.actions}
           />
           <Box
-            Category="Ahorro esta semana"
+            Category="Savings this week"
             Color="blue"
             icon="fas fa-hand-holding-usd"
             total={this.props.savings}
